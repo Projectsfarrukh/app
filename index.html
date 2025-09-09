@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Портфолио — Фаррух Бакоев</title>
+  <style>
+    body{
+      margin:0; font:15px/1.6 system-ui,Arial;
+      background:linear-gradient(135deg,#0A66FF,#22c55e);
+      min-height:100vh; display:flex; justify-content:center; align-items:flex-start;
+      padding:30px;
+    }
+    .wrap{max-width:800px;width:100%;background:#fff;border-radius:20px;
+          box-shadow:0 20px 40px rgba(0,0,0,.15);padding:24px}
+    h1{margin:0 0 12px;font-size:24px;color:#0A66FF}
+    p.lead{margin:0 0 20px;color:#555}
+    .items{display:grid;gap:16px;list-style:none;padding:0;margin:0}
+    .card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:16px;
+          padding:18px;box-shadow:0 6px 16px rgba(0,0,0,.05)}
+    .name{font-weight:700;font-size:18px;margin:0 0 6px}
+    .desc{font-size:14px;color:#666;margin:0 0 12px}
+    .open{display:inline-block;padding:12px 16px;border-radius:12px;
+          background:#0A66FF;color:#fff;text-decoration:none;font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Портфолио проектов</h1>
+    <p class="lead">Автоматизация, образовательные платформы и боты</p>
+    <ul class="items" id="items"></ul>
+  </div>
+
+  <script>
+    const API = "https://script.google.com/macros/s/AKfycbzwu4mzV3Ltak9vOIK6M7wcR_2RtiHwXjKL31pI1lDKR6oTq9o8qNE5533pX3Gp5dn-/exec"; // вставь сюда свой URL
+    const list = document.getElementById('items');
+
+    fetch(API).then(r=>r.json()).then(res=>{
+      if(!res.ok) return;
+      res.data.forEach(p=>{
+        const li = document.createElement('li');
+        li.className = 'card';
+        li.innerHTML = `
+          <h2 class="name">${p.name}</h2>
+          <div class="desc">${p.desc||''}</div>
+          <a class="open" href="${p.url}" target="_blank">Открыть</a>
+        `;
+        list.append(li);
+      })
+    })
+  </script>
+</body>
+</html>
